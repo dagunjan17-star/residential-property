@@ -81,7 +81,7 @@ export const PropertyProvider = ({ children }) => {
   const fetchAllProperties = async () => {
     try {
       const res = await axios.get(
-        "https://deal-acres-backend.onrender.com/api/listed-properties/searchProperties?page=1&limit=1000"
+        "https://deal-acres-backend.onrender.com/api/listed-properties/searchProperties?page=1&limit=100&city=gurgaon "
       );
 
       setAllProperties(res?.data?.data || []);

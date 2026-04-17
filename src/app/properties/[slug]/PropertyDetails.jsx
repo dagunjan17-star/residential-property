@@ -11,6 +11,7 @@ export default function PropertyDetails({ propertyy }) {
   const [open, setOpen] = useState(false);
 
   const { allProperties } = useProperty(); // ✅ correct
+  const [relatedLoading, setRelatedLoading] = useState(true);
 
   /* FORMAT AREA */
 
@@ -28,15 +29,34 @@ export default function PropertyDetails({ propertyy }) {
   const shuffleArray = (array) => {
     return [...array].sort(() => Math.random() - 0.5);
   };
+const relatedProperties = useMemo(() => {
+  if (!allProperties?.length) return [];
 
+  let filtered = allProperties.filter(
+    (p) =>
+      p._id !== propertyy._id &&
+      p.city &&
+      propertyy.city &&
+      p.city.toLowerCase().includes(propertyy.city.toLowerCase())
+  );
+
+  // 🔥 fallback if less data
+  if (filtered.length < 30) {
+    filtered = allProperties.filter((p) => p._id !== propertyy._id);
+  }
+
+  const shuffled = [...filtered].sort(() => 0.5 - Math.random());
+
+  return shuffled.slice(0, 30);
+}, [allProperties, propertyy]);
  
 
 
   useEffect(() => {
-   
+  console.log("ALL PROPERTIES:", allProperties.length);
+    setRelatedLoading(false);
   
 }, [allProperties]);
-
   return (
 
     <div className="bg-[#fff1f4] text-gray-900 px-4 sm:px-6 py-12">
@@ -150,6 +170,25 @@ export default function PropertyDetails({ propertyy }) {
         </section>
 
         {/* ================= RELATED ================= */}
+        {relatedProperties.length > 0 && (
+
+          <section className="mt-20 md:mt-24">
+
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-10">
+              Similar Properties
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+              {relatedProperties.map((property) => (
+                <PropertyCard key={property._id} property={property} />
+              ))}
+
+            </div>
+
+          </section>
+
+        )}
 
         
 

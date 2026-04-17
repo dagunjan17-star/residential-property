@@ -66,10 +66,10 @@ const HeroSection = () => {
   return (
     <section
       className="relative bg-cover bg-center px-4 sm:px-6"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1560518883-ce09059eeffa')",
-      }}
+      // style={{
+      //   backgroundImage:
+      //     "url('https://images.unsplash.com/photo-1560518883-ce09059eeffa')",
+      // }}
     >
       {/* Premium Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#F75270]/50 to-[#ff8fa3]/50"></div>
@@ -100,7 +100,7 @@ const HeroSection = () => {
             both comfort and high appreciation potential.
           </p>
 <Link href="/how-it-works">
-  <button className="relative overflow-hidden bg-white text-[#F75270] px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 hover:bg-white hover:shadow-xl hover:scale-105 mt-4 cursor-pointer">
+  <button className="relative overflow-hidden bg-[#F75270] text-white px-6 py-3 rounded-tl-xl rounded-br-xl cursor-pointer font-semibold shadow-md transition-all duration-300 hover:bg-[#F75270] hover:shadow-xl hover:scale-105 mt-4 ">
     
     <span className="relative z-10">Learn More</span>
 

@@ -36,7 +36,7 @@ export default function PropertyTypeButtons() {
               }
             `}
           >
-            {type === "sale" ? " Buy Property" : " Rent Property"}
+            {type === "sale" ? "Browse Properties For Buy" : "Browse Properties For Rent "}
           </div>
         );
       })}
