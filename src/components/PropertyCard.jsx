@@ -22,6 +22,7 @@ export default function PropertyCard({ property }) {
 
           <Image
             src={property?.media?.url || "/no-image.png"}
+            unoptimized
             alt={property.title}
             width={400}
             height={250}
