@@ -29,7 +29,7 @@ const formattedArea = area
 
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
 
-            Residential Properties For Sale in{" "}
+            Residential Properties in{" "}
             <span className="bg-gradient-to-r from-[#F75270] to-[#ff8fa3] bg-clip-text text-transparent">
               {formattedArea || "Gurgaon"} Gurgaon
             </span>
