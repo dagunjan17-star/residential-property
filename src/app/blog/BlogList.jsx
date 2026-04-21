@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useBlog } from "@/contextapi/BlogContext";
 import Pagination from "@/components/Pagination";
-
+import Breadcrumb from "@/components/Breadcrumb";
 const formatDate = (date) => {
   if (!date) return "";
   const d = new Date(date);
@@ -37,9 +37,11 @@ export default function BlogList() {
       className="px-4 sm:px-6 lg:px-0 max-w-7xl mx-auto py-12
       bg-gradient-to-b from-white to-[#fff1f4]"
     >
-
+<div className="mb-6">
+   <Breadcrumb />
+  </div>
       {/* HEADING */}
-      <div className="text-center mb-14">
+      <div className=" mb-14">
 
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
 
@@ -50,14 +52,14 @@ export default function BlogList() {
 
         </h2>
 
-        <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+        <p className="text-gray-600 mt-4 max-w-2xl">
 
           Stay updated with residential property trends, home buying tips,
           legal guidance, and expert insights to find your dream home in Gurgaon.
 
         </p>
 
-        <div className="w-20 h-1 bg-gradient-to-r from-[#F75270] to-[#ff8fa3] mx-auto mt-6 rounded-full"></div>
+        <div className="w-20 h-1 bg-gradient-to-r from-[#F75270] to-[#ff8fa3]  mt-6 rounded-full"></div>
 
       </div>
 
