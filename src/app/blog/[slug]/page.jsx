@@ -42,16 +42,16 @@ export async function generateMetadata({ params }) {
 
   if (!single) {
     return {
-      title: "Plot for Sale – Blog",
-      description: "Explore the latest blogs and articles on Plot for Sale.",
+      title: "Residential Property – Blog",
+      description: "Explore the latest blogs and articles on Residential Property.",
     };
   }
 
   return {
-    title: single?.MetaTitle || single?.Title || " Plot for Sale Blog",
+    title: single?.MetaTitle || single?.Title || " Residential Property Blog",
     description:
       single?.MetaDescription ||
-      "Read insightful stories and blogs on Plot for Sale.",
+      "Read insightful stories and blogs on Residential Property.",
     alternates: {
       canonical: `www.residentialpropertyingurgaon.com/blog/${slug}`,
     },

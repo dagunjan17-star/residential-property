@@ -115,9 +115,9 @@ const HeroSection = () => {
 
           <div className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl border border-white/20 shadow-2xl text-white">
 
-            <h3 className="text-2xl font-semibold mb-2">
+            <h2 className="text-2xl font-semibold mb-2">
               Schedule a Site Visit
-            </h3>
+            </h2>
 
             <p className="text-sm mb-6 text-gray-200">
               Get the best deals on residential properties in Gurgaon.

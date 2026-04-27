@@ -1,6 +1,42 @@
 import FilterProperties from "./FilterProperties";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 import Breadcrumb from "@/components/Breadcrumb";
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const rawArea = resolvedParams?.area;
+
+  const area = rawArea
+    ?.replace("residential-property-in-", "")
+    ?.replace(/-gurgaon$/i, "")
+    ?.trim();
+
+  const formattedArea = area
+    ?.replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  const locationName = formattedArea || "Gurgaon";
+
+  return {
+    title: `Residential Property in ${locationName} Gurgaon | Flats, Houses & Villas`,
+
+    description: `Explore residential property in ${locationName}, Gurgaon. Find apartments, builder floors, houses, and villas with modern amenities, prime locations, and excellent connectivity in ${locationName}.`,
+
+    keywords: [
+      `residential property in ${locationName} Gurgaon`,
+      `property in ${locationName} Gurgaon`,
+      `flats in ${locationName}`,
+      `houses in ${locationName}`,
+      `builder floor ${locationName}`,
+      `villa in ${locationName}`,
+      `apartments in ${locationName}`,
+      `${locationName} Gurgaon real estate`,
+    ],
+
+    alternates: {
+      canonical: `https://www.residentialpropertyingurgaon.com/${rawArea}`,
+    },
+  };
+}
 export default async function Page({ params }) {
 
   const resolvedParams = await params;
