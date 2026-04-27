@@ -47,7 +47,7 @@ export async function generateMetadata({ params }) {
       "View complete house details including price, location, photos and amenities in Gurgaon.",
 
     alternates: {
-      canonical: `https://www.dealacres.com/properties/${slug}`,
+      canonical: `https://www.residentialpropertyingurgaon.com/properties/${slug}`,
     },
 
     openGraph: {

@@ -73,13 +73,13 @@ const SidebarEnquiryForm = () => {
       p-8 border border-gray-200"
     >
 
-      <h3 className="text-2xl font-semibold 
+      <h2 className="text-2xl font-semibold 
       bg-gradient-to-r from-[#F75270] to-[#ff8fa3]
       bg-clip-text text-transparent mb-2">
 
         Get Residential Property Consultation
 
-      </h3>
+      </h2>
 
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
 

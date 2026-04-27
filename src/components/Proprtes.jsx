@@ -83,9 +83,9 @@ export default function Properties() {
 
       <div className="max-w-7xl mx-auto mb-12">
 
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Residential Properties in Gurgaon
-        </h1>
+        </h2>
 
         <p className="mt-4 text-gray-500 max-w-2xl">
           Explore premium residential properties in Gurgaon including luxury apartments,
