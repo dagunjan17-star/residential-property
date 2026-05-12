@@ -63,7 +63,7 @@ export const PropertyProvider = ({ children }) => {
       }).toString();
 
       const res = await axios.get(
-        `https://deal-acres-backend.onrender.com/api/listed-properties/searchProperties?${query}`
+        `https://gurgaon-backend.onrender.com/api/listed-properties/searchProperties?${query}`
       );
 
       setTotalPages(res?.data?.totalPages || 1);
@@ -81,7 +81,7 @@ export const PropertyProvider = ({ children }) => {
   const fetchAllProperties = async () => {
     try {
       const res = await axios.get(
-        "https://deal-acres-backend.onrender.com/api/listed-properties/searchProperties?page=1&limit=100&city=gurgaon "
+        "https://gurgaon-backend.onrender.com/api/listed-properties/searchProperties?page=1&limit=100&city=gurgaon "
       );
 
       setAllProperties(res?.data?.data || []);
@@ -107,7 +107,7 @@ export const PropertyProvider = ({ children }) => {
       const query = new URLSearchParams(finalParams).toString();
 
       const res = await axios.get(
-        `https://deal-acres-backend.onrender.com/api/listed-properties/searchByLocality?${query}`
+        `https://gurgaon-backend.onrender.com/api/listed-properties/searchByLocality?${query}`
       );
 
       setLocalityData(res?.data?.data || []);
