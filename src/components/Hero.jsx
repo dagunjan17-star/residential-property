@@ -88,16 +88,7 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg max-w-2xl text-gray-200 leading-relaxed">
-            Gurgaon has emerged as one of the most sought-after residential destinations
-            in Delhi NCR, offering a perfect blend of modern lifestyle and connectivity.
-            <br /><br />
-            Whether you are looking for luxury apartments, builder floors, gated societies,
-            or investment-friendly homes, Gurgaon provides a wide range of options to suit
-            every budget and lifestyle.
-            <br /><br />
-            Explore verified residential properties in Gurgaon located in prime sectors,
-            near metro connectivity, schools, hospitals, and commercial hubs — ensuring
-            both comfort and high appreciation potential.
+           Welcome to Gurgaon's most comprehensive destination for residential property — the city where ambition meets architecture and every neighbourhood tells a story of modern India's rise! Gurgaon's residential property market spans an extraordinarily diverse range: from 1BHK and 2BHK apartments in RERA-certified affordable housing projects to 5BHK luxury villas and penthouse sky homes in landmark DLF and Emaar developments. No matter where you are on your real estate journey — first-time buyer, seasoned investor, upgrader, or downsizer — Gurgaon's residential property landscape has the perfect match for your goals. With India's largest concentration of multinationals, a superbly planned urban infrastructure, and world-class educational, healthcare, and recreational facilities, Gurgaon remains the undisputed leader of NCR's residential property market. Property values continue to rise backed by strong fundamentals, limited prime land supply, and massive end-user demand. Our platform aggregates verified residential property listings across every major Gurgaon locality and budget segment — giving you complete transparency, reliable data, and expert guidance. Explore Gurgaon residential property today and discover why millions choose to live and invest here!
           </p>
 <Link href="/how-it-works">
   <button className="relative overflow-hidden bg-[#F75270] text-white px-6 py-3 rounded-tl-xl rounded-br-xl cursor-pointer font-semibold shadow-md transition-all duration-300 hover:bg-[#F75270] hover:shadow-xl hover:scale-105 mt-4 ">
