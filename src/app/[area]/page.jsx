@@ -1,118 +1,134 @@
-import FilterProperties from "./FilterProperties";
-import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
-import Breadcrumb from "@/components/Breadcrumb";
+// app/[area]/page.jsx
+
+import PageContent from "@/components/PageContent";
+import Listing from "./Listing";
+
+// import PageContent from "@/components/PageContent";
+
+const DOMAIN = "www.residentialpropertyingurgaon.com";
+const BASE_URL = "http://localhost:8282";
+
+// Fallback SEO
+const FALLBACK_META = {
+  title: "Residential Properties in Gurgaon | Flats, Houses & Plots",
+  description:
+    "Explore residential properties in Gurgaon including flats, houses, villas, and plots in prime locations with modern amenities.",
+};
+
+// Common API Function
+const getPageData = async (slug) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/api/page-content/getPageContent?domain=${DOMAIN}&slug=${slug}`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch page data");
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+// Dynamic Metadata
 export async function generateMetadata({ params }) {
-  const resolvedParams = await params;
-  const rawArea = resolvedParams?.area;
+  const { area } = await params;
 
-  const area = rawArea
-    ?.replace("residential-property-in-", "")
-    ?.replace(/-gurgaon$/i, "")
-    ?.trim();
+  const result = await getPageData(area);
 
-  const formattedArea = area
-    ?.replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  // Fallback Meta
+  if (!result?.success || !result?.data) {
+    return {
+      title: FALLBACK_META.title,
+      description: FALLBACK_META.description,
 
-  const locationName = formattedArea || "Gurgaon";
+      alternates: {
+        canonical: `https://${DOMAIN}/${area}`,
+      },
+
+      openGraph: {
+        title: FALLBACK_META.title,
+        description: FALLBACK_META.description,
+        url: `https://${DOMAIN}/${area}`,
+        siteName: DOMAIN,
+        locale: "en_IN",
+        type: "website",
+      },
+
+      twitter: {
+        card: "summary_large_image",
+        title: FALLBACK_META.title,
+        description: FALLBACK_META.description,
+      },
+
+      robots: {
+        index: true,
+        follow: true,
+      },
+    };
+  }
+
+  const data = result.data;
+
+  const canonicalUrl = `https://${DOMAIN}/${data.slug}`;
 
   return {
-    title: `Residential Property in ${locationName} Gurgaon | Flats, Houses & Villas`,
-
-    description: `Explore residential property in ${locationName}, Gurgaon. Find apartments, builder floors, houses, and villas with modern amenities, prime locations, and excellent connectivity in ${locationName}.`,
-
-    keywords: [
-      `residential property in ${locationName} Gurgaon`,
-      `property in ${locationName} Gurgaon`,
-      `flats in ${locationName}`,
-      `houses in ${locationName}`,
-      `builder floor ${locationName}`,
-      `villa in ${locationName}`,
-      `apartments in ${locationName}`,
-      `${locationName} Gurgaon real estate`,
-    ],
+    title: data.metaTitle,
+    description: data.metaDescription,
 
     alternates: {
-      canonical: `https://www.residentialpropertyingurgaon.com/${rawArea}`,
+      canonical: canonicalUrl,
+    },
+
+    openGraph: {
+      title: data.metaTitle,
+      description: data.metaDescription,
+      url: canonicalUrl,
+      siteName: DOMAIN,
+      locale: "en_IN",
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: data.metaTitle,
+      description: data.metaDescription,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
+
+// Page Component
 export default async function Page({ params }) {
+  const { area } = await params;
 
-  const resolvedParams = await params;
+  const result = await getPageData(area);
 
-      const rawArea = resolvedParams?.area;
+  // // Fallback UI
+  // if (!result?.success || !result?.data) {
+  //   return (
+  //     <main>
+  //       <h1>{FALLBACK_META.title}</h1>
 
-// ✅ CLEAN SLUG (IMPORTANT)
-const area = rawArea?.replace("residential-property-in-", "")
-  ?.replace(/-gurgaon$/i, "")
-  ?.trim();;
-
-// slug format → sector-9 → Sector 9
-const formattedArea = area
-  ?.replace(/-/g, " ")
-  .replace(/\b\w/g, (c) => c.toUpperCase());
+  //       <p>{FALLBACK_META.description}</p>
+  //     </main>
+  //   );
+  // }
 
   return (
-
-    <div className="bg-[#fff1f4] min-h-screen">
-
-      <div className="max-w-7xl mx-auto px-4 py-10">
-<div className="mb-6">
-   <Breadcrumb />
-  </div>
-        {/* HEADING */}
-
-        <div className="mb-14">
-
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-
-            Residential Properties in{" "}
-            <span className="bg-gradient-to-r from-[#F75270] to-[#ff8fa3] bg-clip-text text-transparent">
-              {formattedArea || "Gurgaon"} Gurgaon
-            </span>
-
-          </h1>
-
-          <p className="text-gray-600 mt-3">
-            Explore verified residential properties including apartments, builder floors,
-            and gated societies in prime locations with modern amenities and excellent connectivity.
-          </p>
-
-          <div className="w-20 h-1 bg-gradient-to-r from-[#F75270] to-[#ff8fa3] mt-6 rounded-full"></div>
-
-        </div>
-
-        {/* MAIN GRID */}
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-
-          {/* LEFT */}
-
-          <div className="lg:col-span-8 space-y-6">
-
-            <FilterProperties area={area} />
-
-          </div>
-
-          {/* RIGHT */}
-
-          <div className="lg:col-span-4">
-
-            <div className="sticky top-24">
-
-              <SidebarEnquiryForm />
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
+    <main>
+      <Listing slug={area}/>
+      <PageContent pageContent={[result?.data?.pageContent]} area={result?.data?.locality} />
+    </main>
   );
-
 }
