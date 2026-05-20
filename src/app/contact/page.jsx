@@ -1,4 +1,4 @@
-import ContactPage from "./ContactSection";
+import ContactPage from "./ContactPage";
 
 export const metadata = {
   title: "Contact Us – Enquire About Residential Property in Gurgaon | Free Consultation",
