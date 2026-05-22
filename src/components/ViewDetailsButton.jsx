@@ -11,8 +11,8 @@ const START_DATE = "2026-05-21";
 export default function ViewDetailsButton({
   href,
   slug,
+  className = "", // 🔥 custom class prop
 }) {
-
   const { dailyLimit } = useProperty();
 
   // duplicate slug add na ho
@@ -21,29 +21,22 @@ export default function ViewDetailsButton({
   }
 
   const buttonNumber =
-    Array.from(renderedSlugs)
-      .indexOf(slug) + 1;
+    Array.from(renderedSlugs).indexOf(slug) + 1;
 
   // days calculate
-  const start =
-    new Date(START_DATE);
+  const start = new Date(START_DATE);
 
-  const today =
-    new Date();
+  const today = new Date();
 
-  const diffTime =
-    today - start;
+  const diffTime = today - start;
 
-  const daysPassed =
-    Math.floor(
-      diffTime /
-      (1000 * 60 * 60 * 24)
-    );
+  const daysPassed = Math.floor(
+    diffTime / (1000 * 60 * 60 * 24)
+  );
 
   // day wise unlock
   const unlockedLimit =
-    (daysPassed + 1) *
-    dailyLimit;
+    (daysPassed + 1) * dailyLimit;
 
   const isEnabled =
     buttonNumber <= unlockedLimit;
@@ -54,13 +47,11 @@ export default function ViewDetailsButton({
       target="_blank"
       rel="noopener noreferrer"
       className={`
-        px-6 py-2 rounded-lg transition
-        w-full md:w-auto text-center
-        font-medium inline-block
+        ${className}
         ${
           isEnabled
-            ? "bg-[#0046FF] text-white hover:bg-black"
-            : "bg-[#0046FF] text-white hover:bg-black cursor-not-allowed pointer-events-none"
+            ? ""
+            : "cursor-not-allowed pointer-events-none opacity-70"
         }
       `}
     >

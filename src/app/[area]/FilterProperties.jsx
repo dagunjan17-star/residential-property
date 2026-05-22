@@ -218,8 +218,16 @@ export default function FilterProperties({ area }) {
                     >
                       Price On Call
                     </button>
-
-                    <Link
+                    <ViewDetailsButton 
+                    className="border border-[#F75270] text-[#F75270]
+                      px-4 py-2 text-sm
+                      rounded-tl-xl rounded-br-xl
+                      hover:bg-[#F75270]
+                      hover:text-white transition"
+                    
+                                          slug={property.slug}
+                                          href={`https://www.dealacres.com/property/${property.slug}`}/>
+                    {/* <Link
                       href={`/properties/${property.slug}`}
                       className="border border-[#F75270] text-[#F75270]
                       px-4 py-2 text-sm
@@ -228,7 +236,7 @@ export default function FilterProperties({ area }) {
                       hover:text-white transition"
                     >
                       View Details
-                    </Link>
+                    </Link> */}
 
                   </div>
 

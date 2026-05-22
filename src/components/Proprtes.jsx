@@ -248,8 +248,17 @@ export default function Properties() {
                     >
                       Price on Request
                     </button>
+                     <ViewDetailsButton className="flex-1 border border-[#F75270]
+                      text-[#F75270]
+                      px-4 py-2
+                      rounded-tl-xl rounded-br-xl
+                      hover:bg-[#F75270]
+                      hover:text-white
+                      transition text-sm font-medium text-center"
 
-                    <Link
+                      slug={property.slug}
+                      href={`https://www.dealacres.com/property/${property.slug}`}/>
+                    {/* <Link
                       href={`/properties/${property.slug}`}
                       className="flex-1 border border-[#F75270]
                       text-[#F75270]
@@ -260,7 +269,7 @@ export default function Properties() {
                       transition text-sm font-medium text-center"
                     >
                       View Details
-                    </Link>
+                    </Link> */}
 
                   </div>
 
