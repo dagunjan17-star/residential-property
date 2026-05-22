@@ -8,6 +8,7 @@ import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
+import ViewDetailsButton from "./ViewDetailsButton";
 export default function Properties() {
 
   const { properties, loading, error, page, setPage, totalPages } = useProperty();

@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
 
+import ViewDetailsButton from "@/components/ViewDetailsButton";
+
 export default function FilterProperties({ area }) {
 
   // ✅ ONLY LOCALITY DATA USE
