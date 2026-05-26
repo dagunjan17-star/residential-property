@@ -2,13 +2,19 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import toast from "react-hot-toast"
+import AlertPopup from "@/components/AlertPopup"
 
 export default function ContactPage() {
 
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    message: "",
+  })
+
+  const [popup, setPopup] = useState({
+    open: false,
+    type: "success",
     message: "",
   })
 
@@ -24,11 +30,17 @@ export default function ContactPage() {
     const { name, value } = e.target
 
     if (name === "phone") {
+
       if (!/^\d*$/.test(value)) return
+
       if (value.length > 10) return
+
     }
 
-    setFormData({ ...formData, [name]: value })
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
 
   }
 
@@ -37,8 +49,15 @@ export default function ContactPage() {
     e.preventDefault()
 
     if (formData.phone.length !== 10) {
-      toast.error("Phone number must be 10 digits")
+
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Phone number must be 10 digits",
+      })
+
       return
+
     }
 
     setLoading(true)
@@ -47,7 +66,9 @@ export default function ContactPage() {
 
       const res = await fetch("/api/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           ...formData,
           website,
@@ -59,7 +80,11 @@ export default function ContactPage() {
 
       if (result.success) {
 
-        toast.success("Your property enquiry has been submitted!")
+        setPopup({
+          open: true,
+          type: "success",
+          message: "Your property enquiry has been submitted!",
+        })
 
         setFormData({
           name: "",
@@ -68,187 +93,220 @@ export default function ContactPage() {
         })
 
       } else {
-        toast.error("Something went wrong. Please try again.")
+
+        setPopup({
+          open: true,
+          type: "error",
+          message: "Something went wrong. Please try again.",
+        })
+
       }
 
     } catch (err) {
-      toast.error("Server error. Please try later.")
+
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Server error. Please try later.",
+      })
+
     } finally {
+
       setLoading(false)
+
     }
 
   }
 
   return (
 
-    <section className="bg-gradient-to-b from-white to-[#fff1f4] py-20 px-4 sm:px-6">
+    <>
 
-      <div className="max-w-7xl mx-auto">
+      <section className="bg-gradient-to-b from-white to-[#fff1f4] py-20 px-4 sm:px-6">
 
-        {/* HEADING */}
+        <div className="max-w-7xl mx-auto">
 
-        <div className="text-center mb-16">
+          {/* HEADING */}
 
-          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
+          <div className="text-center mb-16">
 
-            Let’s Find Your{" "}
-            <span className="bg-gradient-to-r from-[#F75270] to-[#ff8fa3] bg-clip-text text-transparent">
-              Dream Home
-            </span>
+            <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
 
-          </h1>
+              Let’s Find Your{" "}
+              <span className="bg-gradient-to-r from-[#F75270] to-[#ff8fa3] bg-clip-text text-transparent">
+                Dream Home
+              </span>
 
-          <p className="mt-6 text-gray-600 max-w-2xl mx-auto">
+            </h1>
 
-            Looking to buy a home in Gurgaon? Our property experts
-            will help you find the best residential properties based on your
-            budget, lifestyle, and preferred location.
+            <p className="mt-6 text-gray-600 max-w-2xl mx-auto">
 
-          </p>
+              Looking to buy a home in Gurgaon? Our property experts
+              will help you find the best residential properties based on your
+              budget, lifestyle, and preferred location.
 
-        </div>
-
-        {/* FORM + IMAGE */}
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-          {/* FORM */}
-
-          <div className="bg-white border border-[#F75270]/20
-          rounded-3xl p-10 shadow-xl hover:shadow-2xl transition duration-500">
-
-            <h2 className="text-2xl font-semibold mb-2
-            bg-gradient-to-r from-[#F75270] to-[#ff8fa3]
-            bg-clip-text text-transparent">
-
-              Register Your Property Requirement
-
-            </h2>
-
-            <p className="text-gray-500 mb-8 text-sm">
-              Fill in your details and our expert will contact you shortly.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+          </div>
 
-              {/* NAME */}
+          {/* FORM + IMAGE */}
 
-              <div>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-                <label className="text-sm text-gray-600">
-                  Full Name*
-                </label>
+            {/* FORM */}
 
-                <input
-                  name="name"
-                  required
-                  placeholder="Enter your full name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="mt-2 w-full px-4 py-3 rounded-xl bg-[#fff4f6]
-                  border border-[#F75270]/20 text-gray-900
-                  focus:ring-2 focus:ring-[#F75270] outline-none transition"
-                />
+            <div className="bg-white border border-[#F75270]/20
+            rounded-3xl p-10 shadow-xl hover:shadow-2xl transition duration-500">
 
-              </div>
+              <h2 className="text-2xl font-semibold mb-2
+              bg-gradient-to-r from-[#F75270] to-[#ff8fa3]
+              bg-clip-text text-transparent">
 
-              {/* PHONE */}
+                Register Your Property Requirement
 
-              <div>
+              </h2>
 
-                <label className="text-sm text-gray-600">
-                  Phone*
-                </label>
+              <p className="text-gray-500 mb-8 text-sm">
+                Fill in your details and our expert will contact you shortly.
+              </p>
 
-                <input
-                  name="phone"
-                  required
-                  inputMode="numeric"
-                  placeholder="+91 XXXXX XXXXX"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="mt-2 w-full px-4 py-3 rounded-xl bg-[#fff4f6]
-                  border border-[#F75270]/20 text-gray-900
-                  focus:ring-2 focus:ring-[#F75270] outline-none transition"
-                />
+              <form onSubmit={handleSubmit} className="space-y-6">
 
-              </div>
+                {/* NAME */}
 
-              {/* MESSAGE */}
+                <div>
 
-              <div>
+                  <label className="text-sm text-gray-600">
+                    Full Name*
+                  </label>
 
-                <label className="text-sm text-gray-600">
-                  Requirements
-                </label>
+                  <input
+                    name="name"
+                    required
+                    placeholder="Enter your full name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="mt-2 w-full px-4 py-3 rounded-xl bg-[#fff4f6]
+                    border border-[#F75270]/20 text-gray-900
+                    focus:ring-2 focus:ring-[#F75270] outline-none transition"
+                  />
 
-                <textarea
-                  rows={4}
-                  name="message"
-                  placeholder="BHK, Budget, Preferred Location, Possession..."
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="mt-2 w-full px-4 py-3 rounded-xl bg-[#fff4f6]
-                  border border-[#F75270]/20 text-gray-900
-                  focus:ring-2 focus:ring-[#F75270] outline-none resize-none transition"
-                />
+                </div>
 
-              </div>
+                {/* PHONE */}
 
-              {/* BUTTON */}
+                <div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3 rounded-full font-semibold
-                bg-gradient-to-r from-[#F75270] to-[#ff8fa3]
-                text-white
-                hover:from-[#ff6f89] hover:to-[#F75270]
-                transition shadow-md hover:shadow-lg cursor-pointer"
-              >
+                  <label className="text-sm text-gray-600">
+                    Phone*
+                  </label>
 
-                {loading ? "Submitting..." : "Submit Property Enquiry"}
+                  <input
+                    name="phone"
+                    required
+                    inputMode="numeric"
+                    placeholder="+91 XXXXX XXXXX"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="mt-2 w-full px-4 py-3 rounded-xl bg-[#fff4f6]
+                    border border-[#F75270]/20 text-gray-900
+                    focus:ring-2 focus:ring-[#F75270] outline-none transition"
+                  />
 
-              </button>
+                </div>
 
-            </form>
+                {/* MESSAGE */}
+
+                <div>
+
+                  <label className="text-sm text-gray-600">
+                    Requirements
+                  </label>
+
+                  <textarea
+                    rows={4}
+                    name="message"
+                    placeholder="BHK, Budget, Preferred Location, Possession..."
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="mt-2 w-full px-4 py-3 rounded-xl bg-[#fff4f6]
+                    border border-[#F75270]/20 text-gray-900
+                    focus:ring-2 focus:ring-[#F75270] outline-none resize-none transition"
+                  />
+
+                </div>
+
+                {/* BUTTON */}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3 rounded-full font-semibold
+                  bg-gradient-to-r from-[#F75270] to-[#ff8fa3]
+                  text-white
+                  hover:from-[#ff6f89] hover:to-[#F75270]
+                  transition shadow-md hover:shadow-lg cursor-pointer
+                  disabled:opacity-70"
+                >
+
+                  {loading ? "Submitting..." : "Submit Property Enquiry"}
+
+                </button>
+
+              </form>
+
+            </div>
+
+            {/* IMAGE */}
+
+            <div className="relative h-[520px] rounded-3xl overflow-hidden border border-[#F75270]/20 shadow-xl">
+
+              <Image
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa"
+                alt="Residential Property Consultation"
+                fill
+                className="object-cover"
+                priority
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+
+            </div>
 
           </div>
 
-          {/* IMAGE */}
+          {/* MAP */}
 
-          <div className="relative h-[520px] rounded-3xl overflow-hidden border border-[#F75270]/20 shadow-xl">
+          <div className="mt-24 rounded-3xl overflow-hidden border border-[#F75270]/20 shadow-xl">
 
-            <Image
-              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa"
-              alt="Residential Property Consultation"
-              fill
-              className="object-cover"
-              priority
+            <iframe
+              title="Office Location"
+              src="https://www.google.com/maps?q=29.134042,75.740044&z=18&output=embed"
+              className="w-full h-[500px] border-0"
+              loading="lazy"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-
           </div>
 
         </div>
 
-        {/* MAP */}
+      </section>
 
-        <div className="mt-24 rounded-3xl overflow-hidden border border-[#F75270]/20 shadow-xl">
+      {/* ALERT POPUP */}
 
-          <iframe
-            title="Office Location"
-            src="https://www.google.com/maps?q=29.134042,75.740044&z=18&output=embed"
-            className="w-full h-[500px] border-0"
-            loading="lazy"
-          />
+      <AlertPopup
+        open={popup.open}
+        type={popup.type}
+        message={popup.message}
+        onClose={() =>
+          setPopup({
+            ...popup,
+            open: false,
+          })
+        }
+      />
 
-        </div>
-
-      </div>
-
-    </section>
+    </>
 
   )
 

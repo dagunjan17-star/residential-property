@@ -1,14 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import AlertPopup from "./AlertPopup";
 import Link from "next/link";
 const HeroSection = () => {
-  const [formData, setFormData] = useState({
+   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     message: "",
   });
+  const [popup, setPopup] = useState({
+  open: false,
+  type: "success",
+  message: "",
+});
 
   const [loading, setLoading] = useState(false);
 
@@ -32,7 +37,11 @@ const HeroSection = () => {
     e.preventDefault();
 
     if (formData.phone.length !== 10) {
-      toast.error("Phone number must be 10 digits");
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Phone number must be exactly 10 digits",
+      });
       return;
     }
 
@@ -50,14 +59,38 @@ const HeroSection = () => {
 
       const result = await res.json();
 
-      if (result.success) {
-        toast.success("Enquiry submitted successfully!");
-        setFormData({ name: "", phone: "", message: "" });
-      } else {
-        toast.error("Something went wrong. Try again.");
-      }
+     if (result.success) {
+  setPopup({
+    open: true,
+    type: "success",
+    message: "Enquiry submitted successfully!",
+  });
+
+  setFormData({
+    name: "",
+    phone: "",
+    message: "",
+  });
+} else {
+  setPopup({
+    open: true,
+    type: "error",
+    message: "Something went wrong. Try again.",
+  });
+}
     } catch (err) {
-      toast.error("Server error. Please try later.");
+      setPopup({
+  open: true,
+  type: "error",
+  message: "Server error. Please try later.",
+});
+
+  setFormData({
+    name: "",
+    phone: "",
+    message: "",
+  });
+
     } finally {
       setLoading(false);
     }
@@ -87,7 +120,7 @@ const HeroSection = () => {
             in Gurgaon
           </h1>
 
-          <p className="text-lg max-w-2xl text-gray-200 leading-relaxed">
+          <p className="text-lg max-w-4xl text-gray-200 leading-relaxed">
            Welcome to Gurgaon's most comprehensive destination for residential property — the city where ambition meets architecture and every neighbourhood tells a story of modern India's rise! Gurgaon's residential property market spans an extraordinarily diverse range: from 1BHK and 2BHK apartments in RERA-certified affordable housing projects to 5BHK luxury villas and penthouse sky homes in landmark DLF and Emaar developments. No matter where you are on your real estate journey — first-time buyer, seasoned investor, upgrader, or downsizer — Gurgaon's residential property landscape has the perfect match for your goals. With India's largest concentration of multinationals, a superbly planned urban infrastructure, and world-class educational, healthcare, and recreational facilities, Gurgaon remains the undisputed leader of NCR's residential property market. Property values continue to rise backed by strong fundamentals, limited prime land supply, and massive end-user demand. Our platform aggregates verified residential property listings across every major Gurgaon locality and budget segment — giving you complete transparency, reliable data, and expert guidance. Explore Gurgaon residential property today and discover why millions choose to live and invest here!
           </p>
 <Link href="/how-it-works">
@@ -175,7 +208,17 @@ const HeroSection = () => {
           </div>
 
         </div>
-
+<AlertPopup
+  open={popup.open}
+  type={popup.type}
+  message={popup.message}
+  onClose={() =>
+    setPopup({
+      ...popup,
+      open: false,
+    })
+  }
+/>
       </div>
     </section>
   );
