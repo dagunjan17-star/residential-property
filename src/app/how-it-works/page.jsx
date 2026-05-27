@@ -23,7 +23,7 @@ export const metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.residentialpropertyingurgaon.com/residential-property",
+    canonical: "https://www.residentialpropertyingurgaon.com/how-it-works",
   },
 };
 

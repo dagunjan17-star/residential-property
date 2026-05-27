@@ -1,9 +1,12 @@
 import Link from "next/link";
+import Breadcrumb from "@/components/Breadcrumb";
 export default function ResidentialHero() {
   return (
     <section className="bg-[#fff1f4] py-6 px-4 md:px-10">
       <div className="max-w-5xl mx-auto space-y-5">
-
+<div className="py-3">
+        <Breadcrumb/>
+      </div>
         {/* Highlighted Title */}
         <div className="space-y-4">
           <h1 className="text-2xl md:text-4xl font-bold leading-tight">

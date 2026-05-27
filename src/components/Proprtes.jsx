@@ -9,6 +9,7 @@ import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import ViewDetailsButton from "./ViewDetailsButton";
+import NearbyLocations from "./NearbyLocations";
 export default function Properties() {
 
   const { properties, loading, error, page, setPage, totalPages } = useProperty();
@@ -107,10 +108,11 @@ export default function Properties() {
 
         <div className="lg:col-span-2 space-y-8">
 
-          {currentProperties.map((property) => (
-
+          {currentProperties.map((property , index) => (
+              <div
+              key={property._id}>
             <div
-              key={property._id}
+             
               className="bg-white rounded-2xl border border-gray-100
               shadow-sm hover:shadow-2xl hover:-translate-y-1
               transition duration-300 overflow-hidden md:h-[250px]"
@@ -276,7 +278,12 @@ export default function Properties() {
                 </div>
 
               </div>
-
+             </div>
+             {(index + 1) % 10 === 0 && (
+              <NearbyLocations
+                properties={currentProperties.slice(index - 9, index + 1)}
+              />
+            )}
             </div>
 
           ))}

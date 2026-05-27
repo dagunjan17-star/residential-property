@@ -26,6 +26,9 @@ export const metadata = {
     "residential property Sohna Road",
     "residential property Golf Course Road",
   ],
+  alternates: {
+    canonical: "https://www.residentialpropertyingurgaon.com/about",
+  },
 };
 
 export default function Page() {
