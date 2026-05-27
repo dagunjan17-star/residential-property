@@ -15,7 +15,8 @@ const currentDate =
     new Date().toISOString();
 
 export async function generateSitemap() {
-  const baseUrl = "www.residentialpropertyingurgaon.com";
+  const baseUrl =
+  "https://www.residentialpropertyingurgaon.com";
 
   // 🔹 Static URLs
   const staticUrls = `
