@@ -47,11 +47,11 @@ export default function ViewDetailsButton({
       target="_blank"
       rel="noopener noreferrer"
       className={`
-        ${className}
+           ${className}
         ${
           isEnabled
             ? ""
-            : "cursor-not-allowed pointer-events-none opacity-70"
+            : ""
         }
       `}
     >
