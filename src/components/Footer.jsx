@@ -16,13 +16,27 @@ const createSlug = (location) => {
 
 export default function Footer() {
 
-  const [showAll, setShowAll] = useState(false);
+ const [showAll, setShowAll] = useState({
+  sale: false,
+  rent: false,
+});
 
-  const initialCount = 14;
+const initialCount = 14;
 
-  const visibleLocations = showAll
-    ? locations
-    : locations.slice(0, initialCount);
+const saleLocations = showAll.sale
+  ? locations
+  : locations.slice(0, initialCount);
+
+const rentLocations = showAll.rent
+  ? locations
+  : locations.slice(0, initialCount);
+
+const toggleShowAll = (key) => {
+  setShowAll((prev) => ({
+    ...prev,
+    [key]: !prev[key],
+  }));
+};;
 
   return (
     <footer className="bg-[#12001c] pt-16 pb-8 px-4 border-t border-[#F75270]">
@@ -56,7 +70,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm">
 
-            {visibleLocations.map((loc, index) => (
+            {saleLocations.map((loc, index) => (
 
               <div key={index} className="relative group">
 
@@ -89,27 +103,16 @@ export default function Footer() {
 
             ))}
 
-            {!showAll && locations.length > initialCount && (
-              <div>
-                <span
-                  onClick={() => setShowAll(true)}
-                  className="block cursor-pointer text-white hover:underline"
-                >
-                  View More...
-                </span>
-              </div>
-            )}
-
-            {showAll && locations.length > initialCount && (
-              <div>
-                <span
-                  onClick={() => setShowAll(false)}
-                  className="block cursor-pointer text-white hover:underline"
-                >
-                  View Less...
-                </span>
-              </div>
-            )}
+            {locations.length > initialCount && (
+  <div>
+    <span
+      onClick={() => toggleShowAll("sale")}
+      className="block cursor-pointer text-[#F75270] hover:underline"
+    >
+      {showAll.sale ? "View Less..." : "View More..."}
+    </span>
+  </div>
+)}
 
           </div>
 
@@ -122,7 +125,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm">
 
-            {visibleLocations.map((loc, index) => (
+            {rentLocations.map((loc, index) => (
 
               <div key={index} className="relative group">
 
@@ -155,27 +158,16 @@ export default function Footer() {
 
             ))}
 
-            {!showAll && locations.length > initialCount && (
-              <div>
-                <span
-                  onClick={() => setShowAll(true)}
-                  className="block cursor-pointer text-white hover:underline"
-                >
-                  View More...
-                </span>
-              </div>
-            )}
-
-            {showAll && locations.length > initialCount && (
-              <div>
-                <span
-                  onClick={() => setShowAll(false)}
-                  className="block cursor-pointer text-white hover:underline"
-                >
-                  View Less...
-                </span>
-              </div>
-            )}
+          {locations.length > initialCount && (
+  <div>
+    <span
+      onClick={() => toggleShowAll("rent")}
+      className="block cursor-pointer text-[#F75270] hover:underline"
+    >
+      {showAll.rent ? "View Less..." : "View More..."}
+    </span>
+  </div>
+)}
 
           </div>
 
