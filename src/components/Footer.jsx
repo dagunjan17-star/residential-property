@@ -18,7 +18,7 @@ export default function Footer() {
 
   const [showAll, setShowAll] = useState(false);
 
-  const initialCount = 40;
+  const initialCount = 14;
 
   const visibleLocations = showAll
     ? locations
@@ -51,20 +51,20 @@ export default function Footer() {
         <div className="mb-10">
 
           <h3 className="text-lg font-semibold text-white mb-6">
-            Popular Residential Property Locations
+            Explore Residential Properties for Sale in Prime Locations
           </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm">
 
             {visibleLocations.map((loc, index) => (
 
               <div key={index} className="relative group">
 
                 <Link
-                  href={`/residential-property-in-${createSlug(loc)}-gurgaon`}
+                  href={`/residential-property-for-sale-in-${createSlug(loc)}-gurgaon`}
                   className="block truncate text-gray-300 hover:text-white transition"
                 >
-                  Residential Property in {loc}
+                  Residential Property for Sale in {loc}
                 </Link>
 
                 <div
@@ -82,7 +82,73 @@ export default function Footer() {
                   pointer-events-none
                 "
                 >
-                  Residential Property in {loc}
+                  Residential Property for Sale in {loc}
+                </div>
+
+              </div>
+
+            ))}
+
+            {!showAll && locations.length > initialCount && (
+              <div>
+                <span
+                  onClick={() => setShowAll(true)}
+                  className="block cursor-pointer text-white hover:underline"
+                >
+                  View More...
+                </span>
+              </div>
+            )}
+
+            {showAll && locations.length > initialCount && (
+              <div>
+                <span
+                  onClick={() => setShowAll(false)}
+                  className="block cursor-pointer text-white hover:underline"
+                >
+                  View Less...
+                </span>
+              </div>
+            )}
+
+          </div>
+
+        </div>
+        <div className="mb-10">
+
+          <h3 className="text-lg font-semibold text-white mb-6">
+            Explore Residential Properties for Rent in Prime Locations
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm">
+
+            {visibleLocations.map((loc, index) => (
+
+              <div key={index} className="relative group">
+
+                <Link
+                  href={`/residential-property-for-rent-in-${createSlug(loc)}-gurgaon`}
+                  className="block truncate text-gray-300 hover:text-white transition"
+                >
+                  Residential Property for Rent in {loc}
+                </Link>
+
+                <div
+                  className="
+                  absolute left-1/2 -translate-x-1/2 bottom-full mb-2
+                  opacity-0 scale-95
+                  group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-200
+                  whitespace-nowrap
+                  bg-gradient-to-r from-[#F75270] to-[#ff8fa3]
+                  text-white text-xs
+                  px-3 py-1.5 rounded-md
+                  shadow-lg
+                  z-[9999]
+                  pointer-events-none
+                "
+                >
+                  Residential Property for Rent in {loc}
                 </div>
 
               </div>

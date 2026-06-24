@@ -1,24 +1,54 @@
+
 "use client";
 
+import { useEffect, useState } from "react";
 import { MapPin, Navigation } from "lucide-react";
 
-export default function NearbyLocations({
-  properties = [],
-}) {
+export default function NearbyLocations({ blockIndex = 0 }) {
+  const [locations, setLocations] = useState([]);
 
-  // 🔥 UNIQUE LOCALITIES
-  const uniqueLocations = [
-    ...new Set(
-      properties
-        ?.map((item) => item.locality)
-        ?.filter(Boolean)
-    ),
+  
+   
+  useEffect(() => {
+  const fetchAreas = async () => {
+    try {
+      const res = await fetch(
+        "https://gurgaon-backend.onrender.com/api/areas/getAllAreas"
+      );
+
+      const data = await res.json();
+
+      console.log("FULL RESPONSE =>", data);
+
+      setLocations(data.data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchAreas();
+}, []);
+const startIndex =
+  locations.length > 0
+    ? (blockIndex * 10) % locations.length
+    : 0;
+
+let visibleLocations = locations.slice(
+  startIndex,
+  startIndex + 10
+);
+
+if (
+  locations.length > 0 &&
+  visibleLocations.length < 10
+) {
+  visibleLocations = [
+    ...visibleLocations,
+    ...locations.slice(0, 10 - visibleLocations.length),
   ];
+}
 
-  // 🔥 ONLY 10 LOCATIONS
-  const visibleLocations = uniqueLocations.slice(0, 10);
-
-  if (visibleLocations.length === 0) return null;
+  if (!locations.length) return null;
 
   return (
     <section className="w-full py-2">
@@ -68,10 +98,7 @@ export default function NearbyLocations({
                 >
                   Nearby Locations
                 </h2>
-{/* 
-                <p className="text-[#F75270]/70 text-sm mt-1">
-                  Explore top nearby property areas
-                </p> */}
+
               </div>
 
             </div>
@@ -117,16 +144,12 @@ export default function NearbyLocations({
             {/* LOCATION LIST */}
             <div className="flex flex-wrap gap-3">
 
-              {visibleLocations.map((location, index) => (
-
-                <button
-                  key={index}
+               {visibleLocations.slice(0, 10).map((item) => (
+            <button
+              key={item._id}
                   onClick={() =>
                     window.open(
-                      `https://www.dealacres.com/properties/residential-property-for-sale-in-${location
-                        .toLowerCase()
-                        .replace(/,/g, "")
-                        .replace(/\s+/g, "-")}`,
+                      `https://www.dealacres.com/properties/residential-property-for-sale-in-${item.slug}`,
                       "_blank"
                     )
                   }
@@ -177,7 +200,7 @@ export default function NearbyLocations({
                       transition-all duration-300
                     "
                   >
-                    {location}
+                    {item.location}
                   </span>
 
                 </button>
