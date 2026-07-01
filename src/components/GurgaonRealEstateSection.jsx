@@ -68,8 +68,26 @@ const faqs = [
 
 export default function GurgaonRealEstateSection() {
   const [openIndex, setOpenIndex] = useState(0);
-
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
   return (
+    <>
+      <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(faqSchema),
+      }}
+    />
    <section className="relative overflow-hidden bg-white py-10 px-4 sm:px-6">
 
   {/* Background Lights */}
@@ -184,5 +202,6 @@ Gurgaon's residential property market is one of the most dynamic, deep, and dive
     </div>
   </div>
 </section>
+</>
   );
 }
