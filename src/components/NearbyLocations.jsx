@@ -149,7 +149,7 @@ if (
               key={item._id}
                   onClick={() =>
                     window.open(
-                      `https://www.dealacres.com/properties/residential-property-for-sale-in-${item.slug}`,
+                      `https://www.dealacres.com/properties/residential-property-for-sale-in-gurgaon`,
                       "_blank"
                     )
                   }
