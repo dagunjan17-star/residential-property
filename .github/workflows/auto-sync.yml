@@ -41,5 +41,5 @@ jobs:
         continue-on-error: true
         run: |
           git remote remove nagori || true
-          git remote add nagori https://x-access-token:${{ secrets.NAGORI_GATE_PROJECTS_ACCESS_TOKEN }}@github.com/dealacresnagorigate/residential-property.git
+          git remote add nagori https://x-access-token:${{ secrets.NAGORI_GATE_PROJECTS_ACCESS_TOKEN }}@github.com/dagunjan17-star/residential-property.git
           git push nagori HEAD:main --force
